@@ -1,0 +1,69 @@
+@host = localhost:8081
+  
+###
+// Create Customer
+POST http://{{host}}/api/customers HTTP/1.1
+content-type: application/json
+    
+{
+  "CstName": "Rahmat",
+  "CstDob": "1992-05-17",
+  "NationalityID": 1,
+  "Family": [
+    {
+      "FlName": "Fitri",
+      "FlDob": "1998-01-20"
+    },
+    {
+      "FlName": "Rafasya",
+      "FlDob": "1998-01-20"
+    },
+    {
+      "FlName": "Budi",
+      "FlDob": "1995-03-15"
+    }
+  ]
+}
+
+###
+// Update Customer
+PUT http://{{host}}/api/customers/1 HTTP/1.1
+content-type: application/json
+    
+{
+  "CstName": "Rahmat",
+  "CstDob": "1992-05-17",
+  "NationalityID": 1,
+  "Family": [
+    {
+      "FlName": "Fitri",
+      "FlDob": "1998-01-20"
+    },
+    {
+      "FlName": "Rafasya",
+      "FlDob": "1998-01-20"
+    },
+    {
+      "FlName": "Budi",
+      "FlDob": "1995-03-15"
+    }
+  ]
+}
+
+###
+## Delete Customer
+DELETE http://{{host}}/api/customers/1 HTTP/1.1
+content-type: application/json
+
+###
+GET http://{{host}}/api/customers?page=1&limit=1 HTTP/1.1
+content-type: application/json
+
+###
+GET http://{{host}}/api/customers/1 HTTP/1.1
+content-type: application/json
+
+
+###
+GET http://{{host}}/api/nationalities HTTP/1.1
+content-type: application/json
