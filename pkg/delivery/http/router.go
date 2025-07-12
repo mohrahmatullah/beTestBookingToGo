@@ -5,7 +5,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// InitRoutes initializes all customer-related routes
 func InitRoutes() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 

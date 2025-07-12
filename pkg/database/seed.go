@@ -42,7 +42,6 @@ func seedNationalities() {
         } else if err != nil {
             log.Fatalf("Gagal cek Nationality %s: %v", nat.NationalityCode, err)
         }
-        // else: sudah ada, skip
     }
 
     if len(toInsert) == 0 {

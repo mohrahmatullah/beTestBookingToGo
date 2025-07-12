@@ -21,25 +21,11 @@ func Connect(connectionString string) {
 }
 
 func Migrate() {
-	// Instance.AutoMigrate(
-	// 	&entities.Nationality{},
-	// 	&entities.Customer{},
-	// 	&entities.FamilyList{},
-	// )
-
-	if err := Instance.AutoMigrate(&entities.Customer{}); err != nil {
-		log.Fatalf("Migrating Customer failed: %v", err)
-	}
-
-	// 2. Kemudian Nationality
-	if err := Instance.AutoMigrate(&entities.Nationality{}); err != nil {
-		log.Fatalf("Migrating Nationality failed: %v", err)
-	}
-
-	// 3. Lalu FamilyList
-	if err := Instance.AutoMigrate(&entities.FamilyList{}); err != nil {
-		log.Fatalf("Migrating FamilyList failed: %v", err)
-	}
+	Instance.AutoMigrate(
+		&entities.Nationality{},
+		&entities.Customer{},
+		&entities.FamilyList{},
+	)
 
 	log.Println("Database Migration Completed...")
 	seedNationalities()
