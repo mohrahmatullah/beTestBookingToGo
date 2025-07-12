@@ -21,7 +21,7 @@ Sebelum menjalankan aplikasi, pastikan Anda sudah menginstall:
 		"connection_string": "host=127.0.0.1 port=5432 user=postgres dbname=beTestBookingToGo sslmode=disable",
 		"port": 8081
 	}
-	
+
 ```
 
 ```json
@@ -34,7 +34,7 @@ sslmode: Mode SSL (disable jika lokal)
 
 ## Cara Menjalankan Aplikasi
 
-``json
+```json
 
 go run ./cmd 
 
