@@ -24,15 +24,15 @@ Sebelum menjalankan aplikasi, pastikan Anda sudah menginstall:
 ```
 
 ```json
-	host: Alamat server PostgreSQL
-	port: Port PostgreSQL (default 5432)
-	user: Username PostgreSQL
-	dbname: Nama database
-	sslmode: Mode SSL (disable jika lokal)
+host: Alamat server PostgreSQL
+port: Port PostgreSQL (default 5432)
+user: Username PostgreSQL
+dbname: Nama database
+sslmode: Mode SSL (disable jika lokal)
 ```
 
 ## Cara Menjalankan Aplikasi
 
 ``json
-	go run ./cmd
+go run ./cmd 
 ```
