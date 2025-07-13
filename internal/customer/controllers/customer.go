@@ -94,8 +94,9 @@ func GetCustomers(w http.ResponseWriter, r *http.Request) {
 func GetCustomerByID(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 
-	var customer dto.Customer
-	if err := database.Instance.Preload("FamilyList").First(&customer, id).Error; err != nil {
+	var customer entities.Customer
+	if err := database.Instance.Preload("FamilyList").
+		Preload("Nationality").First(&customer, id).Error; err != nil {
 		response.Error(w, http.StatusNotFound, "Customer not found")
 		return
 	}
