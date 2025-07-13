@@ -11,7 +11,7 @@ Sebelum menjalankan aplikasi, pastikan Anda sudah menginstall:
 
 ## Konfigurasi Database
 
-1. Pastikan PostgreSQL sudah berjalan di mesin Anda.
+1. Pastikan PostgreSQL sudah berjalan di komputer Anda.
 2. Buat database dengan nama `beTestBookingToGo`.
 3. Edit file `config.json` sesuai pengaturan koneksi database Anda:
 
