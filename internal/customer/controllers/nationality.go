@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"beTestBookingToGo/pkg/database"
@@ -17,8 +16,7 @@ func Getnationality(w http.ResponseWriter, r *http.Request) {
 		Find(&nationalities)
 
 	if result.Error != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": result.Error.Error()})
+		response.Error(w, http.StatusInternalServerError, result.Error.Error())
 		return
 	}
 

@@ -19,15 +19,13 @@ import (
 func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 	var req dto.CreateCustomerRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON: " + err.Error()})
+		response.Error(w, http.StatusBadRequest, "Invalid JSON: " + err.Error())
 		return
 	}
 
 	cstDob, err := time.Parse("2006-01-02", req.CstDob)
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid date format for CstDob"})
+		response.Error(w, http.StatusBadRequest, "Invalid date format for CstDob")
 		return
 	}
 
@@ -47,8 +45,7 @@ func CreateCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := database.Instance.Create(&customer).Error; err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
+		response.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	response.Success(w, customer)
@@ -87,8 +84,7 @@ func GetCustomers(w http.ResponseWriter, r *http.Request) {
 		Find(&customers)
 
 	if result.Error != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": result.Error.Error()})
+		response.Error(w, http.StatusInternalServerError, result.Error.Error())
 		return
 	}
 	response.Success(w, customers)
@@ -99,8 +95,7 @@ func GetCustomerByID(w http.ResponseWriter, r *http.Request) {
 
 	var customer dto.Customer
 	if err := database.Instance.Preload("FamilyList").First(&customer, id).Error; err != nil {
-		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Customer not found"})
+		response.Error(w, http.StatusNotFound, "Customer not found")
 		return
 	}
 	response.Success(w, customer)
@@ -111,22 +106,19 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 
 	var existing dto.Customer
 	if err := database.Instance.Preload("FamilyList").First(&existing, id).Error; err != nil {
-		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Customer not found"})
+		response.Error(w, http.StatusNotFound, "Customer not found")
 		return
 	}
 
 	var req dto.CreateCustomerRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON: " + err.Error()})
+		response.Error(w, http.StatusBadRequest, "Invalid JSON: " + err.Error())
 		return
 	}
 
 	cstDob, err := time.Parse("2006-01-02", req.CstDob)
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid date format for CstDob"})
+		response.Error(w, http.StatusBadRequest, "Invalid date format for CstDob")
 		return
 	}
 
@@ -148,8 +140,7 @@ func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := database.Instance.Session(&gorm.Session{FullSaveAssociations: true}).Save(&existing).Error; err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
+		response.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
@@ -161,8 +152,7 @@ func DeleteCustomer(w http.ResponseWriter, r *http.Request) {
 
 	var customer dto.Customer
 	if err := database.Instance.First(&customer, id).Error; err != nil {
-		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Customer not found"})
+		response.Error(w, http.StatusNotFound, "Customer not found")
 		return
 	}
 
@@ -171,8 +161,7 @@ func DeleteCustomer(w http.ResponseWriter, r *http.Request) {
 
 	// Hapus Customer
 	if err := database.Instance.Delete(&customer).Error; err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(w).Encode(map[string]string{"error": err.Error()})
+		response.Error(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	response.Success(w, map[string]string{"message": "Customer deleted successfully"})

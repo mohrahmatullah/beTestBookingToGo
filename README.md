@@ -7,7 +7,7 @@ Project ini adalah backend service untuk BookingToGo Test.
 Sebelum menjalankan aplikasi, pastikan Anda sudah menginstall:
 
 - **Golang** versi **1.21.4**
-- **PostgreSQL** versi **14.5** atau lebih baru
+- **PostgreSQL** versi **14.5**
 
 ## Konfigurasi Database
 
