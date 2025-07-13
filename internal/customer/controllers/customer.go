@@ -81,6 +81,7 @@ func GetCustomers(w http.ResponseWriter, r *http.Request) {
 		Preload("Nationality").
 		Limit(limit).
 		Offset(offset).
+		Order("cst_id DESC").
 		Find(&customers)
 
 	if result.Error != nil {
